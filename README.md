@@ -27,4 +27,7 @@ Develop a registeration form with below fields:
         gender
         country list
         I agree to terms and conditions, check then enable register else uncheck the 
+
+Create Multiple pages and Navigate --< you need to install>
+    npm i --save react-router react-router-dom
 */

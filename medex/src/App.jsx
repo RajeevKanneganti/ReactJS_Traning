@@ -6,6 +6,7 @@ import { Dropdown } from "./components/Dropdown";
 import { getData, getDataByAxios } from "./services";
 import { APIcall } from "./components/pages/APIcalls";
 import { CartContext } from "./context/cartContext";
+import { AppRoutes } from "./AppRoutes";
 
 function App() {
   const NameOfTheCompany = "Medtronic";
@@ -17,10 +18,11 @@ function App() {
   return (
     <div>
       <CartContext.Provider
-        value={{ cartItemCounnt: cart, setCartItem: addItemToCart }}
+        value={{ cartItemCount: cart, setCartItem: addItemToCart }}
       >
         <Header companyName={NameOfTheCompany} />
         <div className="container mt-5">
+          <AppRoutes />
           <APIcall />
         </div>
       </CartContext.Provider>
