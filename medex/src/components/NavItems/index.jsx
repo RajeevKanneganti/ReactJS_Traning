@@ -1,26 +1,12 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router"
 import { CartContext } from "../../context/cartContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export const NavItems = () => {
-    // const NavProducts = [{
-    //     id: 1,
-    //     name: "Pace Maker",
-    //     URL: "/paceMaker"
-    // },{
-    //     id: 2,
-    //     name: "Stealth Station",
-    //     URL: "/StealthStation.org"
-    // },{
-    //     id: 3,
-    //     name: "Oxymeter",
-    //     URL: "/oxy.org"
-    // },{
-    //     id: 4,
-    //     name: "O-arm",
-    //     URL: "/o-arm.org"
-    // }]
-    const { setCartItem } = useContext(CartContext);
+
+    const { setCartItem } = useContext(CartContext); // use the Cart Context to set the cart Item.
+    const {isLoggedIn, setLogout} = useContext(AuthContext); // use the authentication context to get the login flags and setLogout function
 const navigate = useNavigate();
     const navLinks = [{
         id: 1,
@@ -38,15 +24,34 @@ const navigate = useNavigate();
         id: 4,
         name: "Cart",
         URL: "/cart"
+    },{
+        id: 5,
+        name: "Logout",
+        URL: "/logout"
     }]
+
+    const provideLinkArray = () =>{ //this function will check if user is logged in and have token or not, if token is available
+        //then how the specific links from navLinks, else show only login or registration from navLinks,
+        //this can be used for conditional rendering
+        if(isLoggedIn && localStorage.getItem('token') != null){
+            return navLinks.filter(x=>x.id >2) // if logged in and auth token is available then show the Products, cart, logout
+
+        }else{
+            return navLinks.filter(x=> x.id <=2) // if not logged in or auth token is empty then show login or Register
+        }
+
+    }
+
     const NavContent = () =>{
-        return navLinks.map((item, index) => {
+        return provideLinkArray().map((item, index) => {
             return (
-                <li class="nav-item">
-                    <a class="nav-link" key={index} href="#" onClick={e=>{
+                <li class="nav-item" key={index}>
+                    <a class="nav-link" href="#" onClick={e=>{
+                        if(item.URL == '/login'){
+                            setLogout();
+                        }
                         navigate(item.URL)
                     }}>{item.name}</a>
-                    {/* <a class="nav-link" key={index} href={item.URL}>{item.name} </a> */}
                 </li>
             )
         })

@@ -30,4 +30,16 @@ Develop a registeration form with below fields:
 
 Create Multiple pages and Navigate --< you need to install>
     npm i --save react-router react-router-dom
+
+
+Validations:
+    All the input fields requires the validations.
+    for the validations we have a frame work called  "formik" and "yup" library
+    "yup" --> metion all the fields of the input and the type of the validations required. This is the schema
+
+    install formik and yup as follows:
+        npm i formik yup
+
+React:
+    npm i @reduxjs/toolkit redux react-redux
 */
